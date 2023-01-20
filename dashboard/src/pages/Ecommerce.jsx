@@ -9,6 +9,9 @@ import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropd
 import { useStateContext } from '../contexts/ContextProvider';
 
 function Ecommerce() {
+
+    const { currentColor, currentMode } = useStateContext();
+
     return (
         <div className='mt-24'>
             <div className='flex flex-wrap lg:flex-nowrap justify-center'>
@@ -20,7 +23,7 @@ function Ecommerce() {
                         </div>
                         <button
                             type='button'
-                            style={{backgroundColor: 'blue'}}
+                            style={{backgroundColor: currentColor}}
                             className='text-xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full p-4'
                         >
                             <BsCurrencyDollar />
@@ -29,7 +32,7 @@ function Ecommerce() {
                     <div className='mt-6'>
                         <Button 
                             color='white'
-                            bgColor='blue'
+                            bgColor={currentColor}
                             text='Download'
                             borderRadius="10px"
                         />
@@ -88,13 +91,13 @@ function Ecommerce() {
                             </div>
 
                             <div className='mt-5'>
-                                <SparkLine id='line-sparkLine' type='Line' height='80px' width='250px' data={SparklineAreaData} color='blue' currentColor='blue' />
+                                <SparkLine id='line-sparkLine' type='Line' height='80px' width='250px' data={SparklineAreaData} color={currentColor} currentColor={currentColor} />
                             </div>
 
                             <div className='mt-10'>
                                 <Button 
                                     color='white'
-                                    bgColor='blue'
+                                    bgColor={currentColor}
                                     text='Download Report'
                                     borderRadius='10px' />
                             </div>

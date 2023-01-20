@@ -11,16 +11,27 @@ import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Ka
 import { useStateContext } from './contexts/ContextProvider';
 
 function App() {
-  const { activeMenu } = useStateContext();
+  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
 
+  useEffect(() => {
+    const currentThemeColor = localStorage.getItem('colorMode');
+    const currentThemeMode = localStorage.getItem('themeMode');
+  
+    if(currentThemeColor && currentThemeMode){
+      setCurrentColor(currentThemeColor)
+      setCurrentMode(currentThemeMode)
+    }
+  }, [])
+  
   return (
-    <div className="App">
+    <div className={`App ${currentMode === 'Dark'? 'dark' : ''}`}>
       <BrowserRouter>
         <div className='flex relative dark:bg-main-dark-bg'>
+
           {/* Stting Icon */}
           <div className='fixed right-4 bottom-4' style={{ zIndex: '1000' }}>
             <TooltipComponent content='Setting' position='Top'>
-              <button type='button' className='text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white' style={{ background: 'blue', borderRadius: '50%' }}>
+              <button type='button' onClick={() => setThemeSettings(true)} className='text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white' style={{ background: currentColor, borderRadius: '50%' }}>
                 <FiSettings />
               </button>
             </TooltipComponent>
@@ -43,6 +54,8 @@ function App() {
               <Navbar />
             </div>
 
+            {themeSettings && (<ThemeSettings />)}
+            
             <Routes>
               {/* Dashboard */}
               <Route path='/' element={<Ecommerce />} />
